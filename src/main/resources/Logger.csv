@@ -1,0 +1,7 @@
+
+2022/06/01 22:52:59,https://www.example.com/login,{"table":"myTable","id":"myId"}
+2022/06/01 22:53:00,https://www.example.com/login,{"table":"myTable","name":"myName"}
+2022/06/01 22:53:00,https://www.example.com/login,{"table":"myTable","id":"myId","name":"myName"}
+2022/06/01 22:53:55,https://www.example.com/login,{"table":"myTable","id":"myId"}
+2022/06/01 22:53:56,https://www.example.com/login,{"table":"myTable","name":"myName"}
+2022/06/01 22:53:56,https://www.example.com/login,{"table":"myTable","id":"myId","name":"myName"}
