@@ -34,7 +34,14 @@ public class TestPostRequestLogs {
                 , "404,Not Found,https://example.com/login,{\"customer\":\"customerId\",\"api_key\":\"api_key\"}");
     }
 
-
+    @Test
+    public void TestBulkSendLogs() throws IOException {
+        LoggerDaoMem logger = LoggerDaoMem.getInstance();
+        sender.bulkSend("src/test/resources/TestPostRequests.csv");
+        Assertions.assertEquals(Util.getCSVDataString(logger.LOGGER_FILE_PATH)
+                , "404,Not Found,https://example.com/login,{\"customer\":\"customerId\",\"api_key\":\"api_key\"}\n" +
+                        "404,Not Found,https://example.com/login,{\"customer\":\"customerId2\",\"api_key\":\"api_key2\"}");
+    }
 
 
 }
