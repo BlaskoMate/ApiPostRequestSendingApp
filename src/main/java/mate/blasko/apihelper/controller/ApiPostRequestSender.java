@@ -1,24 +1,19 @@
-package controller;
+package mate.blasko.apihelper.controller;
 
-import dao.implementation.LoggerDaoMem;
-import util.RequestObj;
-import util.ResponseObj;
-import util.Util;
+import mate.blasko.apihelper.dao.mem.LoggerDaoMem;
+import mate.blasko.apihelper.util.RequestObj;
+import mate.blasko.apihelper.util.ResponseObj;
+import mate.blasko.apihelper.util.Util;
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
-import java.time.LocalDateTime;
 import java.util.List;
 
 public class ApiPostRequestSender {
-
-
-
-    //  When false the csv file gets overwritten
-    private final boolean APPEND_FILE;
 
     private LoggerDaoMem logger;
     private static final String CSV_DELIMITER = ",";
@@ -26,19 +21,12 @@ public class ApiPostRequestSender {
 
     public ApiPostRequestSender(){
         this.logger = LoggerDaoMem.getInstance();
-        APPEND_FILE = true;
     }
 
-    public ApiPostRequestSender(boolean append){
-        this.logger = LoggerDaoMem.getInstance();
-        APPEND_FILE = append;
-    }
-
-    public void bulkSend(String path, LocalDateTime date) throws IOException {
+    public void bulkSend(String path) throws IOException {
         List<List<String>> requests = Util.getCSVDataList(path, CSV_DELIMITER);
         for (List<String> requestInfo : requests){
-            RequestObj request = new RequestObj(requestInfo, date);
-            System.out.println(sendPostRequest(request));
+            send(requestInfo);
         }
     }
 
