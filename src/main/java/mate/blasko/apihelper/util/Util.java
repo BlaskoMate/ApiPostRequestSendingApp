@@ -1,4 +1,4 @@
-package util;
+package mate.blasko.apihelper.util;
 
 import java.io.*;
 import java.util.ArrayList;
