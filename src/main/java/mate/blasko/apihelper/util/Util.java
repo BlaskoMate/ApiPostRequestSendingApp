@@ -25,7 +25,11 @@ public class Util {
         BufferedReader br = new BufferedReader(new FileReader(filePath));
         String line;
         while((line = br.readLine()) != null) {
-            result.append(line);
+            if ( ! String.valueOf(result).equals("") ){
+                result.append("\n").append(line);
+            } else {
+                result.append(line);
+            }
         }
         br.close();
         return String.valueOf(result);
