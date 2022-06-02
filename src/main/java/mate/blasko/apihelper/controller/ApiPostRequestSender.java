@@ -43,7 +43,7 @@ public class ApiPostRequestSender {
     }
 
 
-    public String sendPostRequest(RequestObj requestObj) throws IOException {
+    public ResponseObj sendPostRequest(RequestObj requestObj) throws IOException {
         URL url = new URL(requestObj.getUrl());
         URLConnection con = url.openConnection();
         HttpURLConnection http = (HttpURLConnection)con;
@@ -60,9 +60,8 @@ public class ApiPostRequestSender {
             os.write(out);
         }
 
-        ResponseObj responseObj = new ResponseObj(requestObj, http.getResponseCode(), http.getResponseMessage());
-        logger.addLog(responseObj, APPEND_FILE);
-        return http.getResponseMessage();
+        return new ResponseObj(requestObj, http.getResponseCode(), http.getResponseMessage());
+
     }
 
 
