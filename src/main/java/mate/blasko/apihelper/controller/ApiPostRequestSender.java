@@ -42,6 +42,12 @@ public class ApiPostRequestSender {
         }
     }
 
+    public void send(List<String> requestInfo) throws IOException {
+        RequestObj request = new RequestObj(requestInfo);
+        ResponseObj response = sendPostRequest(request);
+        logger.appending(response);
+    }
+
 
     public ResponseObj sendPostRequest(RequestObj requestObj) throws IOException {
         URL url = new URL(requestObj.getUrl());
