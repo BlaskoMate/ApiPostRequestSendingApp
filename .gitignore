@@ -6,3 +6,8 @@
 # Maven
 log/
 target/
+
+# Custom
+TestLogger.csv
+TestPostRequests.csv
+Logger.csv
