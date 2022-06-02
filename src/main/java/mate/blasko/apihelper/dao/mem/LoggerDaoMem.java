@@ -1,15 +1,13 @@
-package dao.implementation;
+package mate.blasko.apihelper.dao.mem;
 
 
-import dao.LoggerDao;
-import util.ResponseObj;
-import util.Util;
+import mate.blasko.apihelper.util.ResponseObj;
+import mate.blasko.apihelper.util.Util;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.io.IOException;
 import java.util.Arrays;
 
-public class LoggerDaoMem implements LoggerDao {
+public class LoggerDaoMem{
 
     private static LoggerDaoMem instance;
     private String[] logger = new String[0];
@@ -43,28 +41,26 @@ public class LoggerDaoMem implements LoggerDao {
         }
     }
 
-    public void addLog(ResponseObj responseObj, boolean append){
+    public void appending(ResponseObj response) {
+        String log = createLog(response);
+        Util.writeToCSVFile(LOGGER_FILE_PATH, log, true);
+    }
+
+    public String createLog(ResponseObj responseObj) {
         String log = formatLog(responseObj);
         logger = Arrays.copyOf(logger, logger.length + 1);
         logger[logger.length - 1] = log;
-        System.out.println(writeLogToFile(log, append));
+        return log;
     }
 
-    public String writeLogToFile(String log, boolean append){
-        Util.writeToCSVFile(LOGGER_FILE_PATH, log, append);
-        return String.format("Writing \"%s\" to filePath: %s",
-                log, LOGGER_FILE_PATH);
-    }
 
     public String formatLog(ResponseObj responseObj){
-        LocalDateTime date = responseObj.getDate();
         int status = responseObj.getStatus();
         String message = responseObj.getMessage();
         String url = responseObj.getUrl();
         String body = responseObj.getBody();
-        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
 
-        return String.format("\n%s,%s,%s,%s,%s", dateFormat.format(date), status, message, url, body);
+        return String.format("\n%s,%s,%s,%s", status, message, url, body);
     }
 
     public void clearLogs() throws IOException {
