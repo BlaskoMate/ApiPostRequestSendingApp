@@ -67,4 +67,7 @@ public class LoggerDaoMem implements LoggerDao {
         return String.format("\n%s,%s,%s,%s,%s", dateFormat.format(date), status, message, url, body);
     }
 
+    public void clearLogs() throws IOException {
+        Util.deleteCsvFileContent(LOGGER_FILE_PATH);
+    }
 }
