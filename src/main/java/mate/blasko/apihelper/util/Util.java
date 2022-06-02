@@ -46,4 +46,8 @@ public class Util {
         }
     }
 
+    public static void deleteCsvFileContent(String path) throws IOException {
+        new FileWriter(path, false).close();
+    }
+
 }
