@@ -1,4 +1,4 @@
-package mate.blasko.apihelper.util;
+package mate.blasko.apihelper.util.apidata;
 
 public class ApiData {
 

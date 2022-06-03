@@ -1,4 +1,4 @@
-package mate.blasko.apihelper.util;
+package mate.blasko.apihelper.util.apidata;
 
 import java.util.List;
 import java.util.stream.Collectors;
