@@ -7,13 +7,16 @@ import java.util.List;
 
 public class Util {
 
-    public static List<List<String>> getCSVDataList(String filePath, String delimiter) throws IOException {
+
+    private static final String CSV_DELIMITER = ",";
+
+    public static List<List<String>> getCSVDataList(String filePath) throws IOException {
         List<List<String>> result = new ArrayList<>();
         BufferedReader br = new BufferedReader(new FileReader(filePath));
         String line;
         while((line = br.readLine()) != null) {
             if (!line.equals("") && line.charAt(0) != '*'){
-                result.add(Arrays.asList(line.split(delimiter)));
+                result.add(Arrays.asList(line.split(CSV_DELIMITER)));
             }
         }
         br.close();
@@ -48,6 +51,10 @@ public class Util {
 
     public static void deleteCsvFileContent(String path) throws IOException {
         new FileWriter(path, false).close();
+    }
+
+    public static boolean doesFilePathExist(String path){
+        return new File(path).exists();
     }
 
 }

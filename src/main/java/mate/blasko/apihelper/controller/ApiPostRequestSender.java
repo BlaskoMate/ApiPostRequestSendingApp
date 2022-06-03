@@ -1,8 +1,8 @@
 package mate.blasko.apihelper.controller;
 
 import mate.blasko.apihelper.dao.mem.LoggerDaoMem;
-import mate.blasko.apihelper.util.RequestObj;
-import mate.blasko.apihelper.util.ResponseObj;
+import mate.blasko.apihelper.util.apidata.RequestObj;
+import mate.blasko.apihelper.util.apidata.ResponseObj;
 import mate.blasko.apihelper.util.Util;
 
 import java.io.IOException;
@@ -16,7 +16,6 @@ import java.util.List;
 public class ApiPostRequestSender {
 
     private LoggerDaoMem logger;
-    private static final String CSV_DELIMITER = ",";
 
 
     public ApiPostRequestSender(){
@@ -24,7 +23,7 @@ public class ApiPostRequestSender {
     }
 
     public void bulkSend(String path) throws IOException {
-        List<List<String>> requests = Util.getCSVDataList(path, CSV_DELIMITER);
+        List<List<String>> requests = Util.getCSVDataList(path);
         for (List<String> requestInfo : requests){
             send(requestInfo);
         }

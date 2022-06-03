@@ -1,4 +1,4 @@
-import mate.blasko.apihelper.util.RequestObj;
+import mate.blasko.apihelper.util.apidata.RequestObj;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

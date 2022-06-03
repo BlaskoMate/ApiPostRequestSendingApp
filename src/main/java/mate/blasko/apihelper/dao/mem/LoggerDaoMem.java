@@ -1,16 +1,16 @@
 package mate.blasko.apihelper.dao.mem;
 
 
-import mate.blasko.apihelper.util.ResponseObj;
+import mate.blasko.apihelper.util.apidata.ResponseObj;
 import mate.blasko.apihelper.util.Util;
 
 import java.io.IOException;
-import java.util.Arrays;
+import java.util.ArrayList;
 
 public class LoggerDaoMem{
 
     private static LoggerDaoMem instance;
-    private String[] logger = new String[0];
+    private ArrayList<String> logs = new ArrayList<>();
     public final String LOGGER_FILE_PATH;
 
     private LoggerDaoMem(){
@@ -35,11 +35,6 @@ public class LoggerDaoMem{
         return instance;
     }
 
-    public void printRecentLogsToConsole(){
-        for (String row : logger){
-            System.out.println(row);
-        }
-    }
 
     public void appending(ResponseObj response) {
         String log = createLog(response);
@@ -48,8 +43,7 @@ public class LoggerDaoMem{
 
     public String createLog(ResponseObj responseObj) {
         String log = formatLog(responseObj);
-        logger = Arrays.copyOf(logger, logger.length + 1);
-        logger[logger.length - 1] = log;
+        logs.add(log);
         return log;
     }
 
@@ -65,5 +59,9 @@ public class LoggerDaoMem{
 
     public void clearLogs() throws IOException {
         Util.deleteCsvFileContent(LOGGER_FILE_PATH);
+    }
+
+    public ArrayList<String> getLogs() {
+        return logs;
     }
 }
