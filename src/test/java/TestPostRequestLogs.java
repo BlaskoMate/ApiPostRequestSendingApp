@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -43,5 +44,10 @@ public class TestPostRequestLogs {
                         "404,Not Found,https://example.com/login,{\"customer\":\"customerId2\",\"api_key\":\"api_key2\"}");
     }
 
+    @Test
+    public void TestSendingRequestToMalformedUrl(){
+        ArrayList<String> requestInfo = new ArrayList<>(Arrays.asList("not an url"));
+        Assertions.assertThrows(MalformedURLException.class, () -> sender.send(requestInfo));
+    }
 
 }
