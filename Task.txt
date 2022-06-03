@@ -1,0 +1,21 @@
+# API Post request sending app
+
+## Task
+
+A basic implementation of an API post request sending application Preferred in JAVA.
+
+## Part of the task:
+
+- Generic solution (url and payload can be defined before the run)
+- Result validation:
+    Success on HTTP 200.
+    Anything else fails.
+- Advanced logging on the response and the request.
+
+1. For example:
+    Url: https://example.com/api
+    Payload:
+    {
+    "customer": "customerId",
+    "api_key": "api_key",
+    }
