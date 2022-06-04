@@ -17,7 +17,19 @@ public class Display {
     }
 
     public static void printHelp() {
-        System.out.println(LoggerDaoMem.getInstance().LOGGER_FILE_PATH + " is set as default Logger file path.");
+        System.out.printf(
+                """
+                    Default file path for logging requests is set to: %s ...
+                    Command,   Description   < Arguments >
+                    
+                    -h, --help,     Get help for commands
+                    -d, --data,     HTTP POST data   < key1:value1 key2:value2 ...>
+                    -b, --bulk,     Bulk send POST data from file   < file_path >
+                    -r, --recent,   Print recent logs since launching the app
+                    -a, --all,      Print all logs from log file
+                    -c, --clear     Clear console
+                    -e, --exit      Stop the application");
+                    """, LoggerDaoMem.getInstance().LOGGER_FILE_PATH);
     }
 
     public static void printMenu() {
