@@ -11,7 +11,7 @@ import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class TestPostRequestLogs {
+public class TestSendPostRequest {
 
     ApiPostRequestSender sender = new ApiPostRequestSender();
 
@@ -27,25 +27,25 @@ public class TestPostRequestLogs {
 
 
     @Test
-    public void TestSingleSendLog() throws IOException {
+    public void TesSendPostRequestLog() throws IOException {
         ArrayList<String> requestInfo = new ArrayList<>(Arrays.asList(
-                "https://example.com/login", "customer:customerId", "api_key:api_key"));
+                "https://example.com/login", "customer:customerId", "api_key:api_key_"));
         sender.send(requestInfo);
         Assertions.assertEquals(Util.getCSVDataString(LoggerDaoMem.getInstance().LOGGER_FILE_PATH)
-                , "404,Not Found,https://example.com/login,{\"customer\":\"customerId\",\"api_key\":\"api_key\"}");
+                , "404;Not Found;https://example.com/login;{\"customer\":\"customerId\",\"api_key\":\"api_key_\"}");
     }
 
     @Test
-    public void TestBulkSendLogs() throws IOException {
+    public void TestBulkSendPostRequestLogs() throws IOException {
         LoggerDaoMem logger = LoggerDaoMem.getInstance();
         sender.bulkSend("src/test/resources/TestPostRequests.csv");
         Assertions.assertEquals(Util.getCSVDataString(logger.LOGGER_FILE_PATH)
-                , "404,Not Found,https://example.com/login,{\"customer\":\"customerId\",\"api_key\":\"api_key\"}\n" +
-                        "404,Not Found,https://example.com/login,{\"customer\":\"customerId2\",\"api_key\":\"api_key2\"}");
+                , "404;Not Found;https://example.com/login;{\"customer\":\"customerId\",\"api_key\":\"api_key\"}\n" +
+                        "404;Not Found;https://example.com/login;{\"customer\":\"customerId2\",\"api_key\":\"api_key2\"}");
     }
 
     @Test
-    public void TestSendingRequestToMalformedUrl(){
+    public void TestThrowMalformedUrlExceptionForSendPostRequestWithMalformedUrl(){
         ArrayList<String> requestInfo = new ArrayList<>(Arrays.asList("not an url"));
         Assertions.assertThrows(MalformedURLException.class, () -> sender.send(requestInfo));
     }

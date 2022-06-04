@@ -6,10 +6,14 @@ import java.util.ArrayList;
 
 public class Display {
 
-    public static void printLogsToConsole(ArrayList<String> logs){
-        for (String log : logs){
-            System.out.println(log);
+    public static void printLogsToConsole(ArrayList<ArrayList<String>> logs){
+        for (ArrayList<String> log : logs){
+            printLogToConsole(log);
         }
+    }
+
+    public static void printLogToConsole(ArrayList<String> log){
+
     }
 
     public static void printHelp() {
@@ -23,5 +27,14 @@ public class Display {
 
     public static void clearConsole(){
         // TODO:
+    }
+
+    public static void invalidCommand() {
+        System.out.println("Invalid command.");
+        getHelp();
+    }
+
+    public static void getHelp() {
+        System.out.println("Type in a command.\nIf you need help, type \"-h\" or \"help\" for more information..");
     }
 }

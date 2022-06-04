@@ -1,6 +1,7 @@
 package mate.blasko.apihelper.controller;
 
 import mate.blasko.apihelper.dao.mem.LoggerDaoMem;
+import mate.blasko.apihelper.util.apidata.ApiDataFormatter;
 import mate.blasko.apihelper.util.apidata.RequestObj;
 import mate.blasko.apihelper.util.apidata.ResponseObj;
 import mate.blasko.apihelper.util.Util;
@@ -11,6 +12,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ApiPostRequestSender {
@@ -30,7 +32,8 @@ public class ApiPostRequestSender {
     }
 
     public void send(List<String> requestInfo) throws IOException {
-        RequestObj request = new RequestObj(requestInfo);
+        ArrayList<String> formattedRequest = ApiDataFormatter.formatRequestInfo(requestInfo);
+        RequestObj request = new RequestObj(formattedRequest);
         ResponseObj response = sendPostRequest(request);
         logger.appending(response);
     }
