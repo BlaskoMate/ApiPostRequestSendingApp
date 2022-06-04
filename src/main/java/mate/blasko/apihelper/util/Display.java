@@ -6,13 +6,25 @@ import java.util.ArrayList;
 
 public class Display {
 
-    public static void printLogsToConsole(ArrayList<ArrayList<String>> logs){
-        for (ArrayList<String> log : logs){
-            printLogToConsole(log);
+    public static void printLogs(String[] logs){
+        for (String log : logs){
+            ResponseObj responseObj = ApiDataFormatter.revertLogToResponseObj(log);
+            printLog(responseObj);
         }
     }
 
-    public static void printLogToConsole(ArrayList<String> log){
+    public static void printLog(ResponseObj log){
+        boolean success = log.getStatus() == 200;
+        String body = String.join("\n    ", log.getBody().split(","));
+        System.out.printf(
+                """
+                    POST request was %s
+                    URL: %s
+                    Body:\040
+                        %s
+                    Status: %s
+                    Message: %s
+                    """, success, log.getUrl(), body, log.getStatus(), log.getMessage());
 
     }
 
