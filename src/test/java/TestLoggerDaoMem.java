@@ -1,4 +1,5 @@
 import mate.blasko.apihelper.dao.mem.LoggerDaoMem;
+import mate.blasko.apihelper.util.apidata.ApiDataFormatter;
 import mate.blasko.apihelper.util.apidata.ResponseObj;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
@@ -16,9 +17,11 @@ public class TestLoggerDaoMem {
 
     @Test
     public void TestFormatLog(){
-        ArrayList<String> testData = new ArrayList<>(Arrays.asList("999", "message", "url", "body:body"));
-        ResponseObj responseObj = new ResponseObj(testData);
-        String log = LoggerDaoMem.getInstance().formatLog(responseObj);
-        Assertions.assertEquals(log, "999;message;url;{\"body\":\"body\"}");
+        ArrayList<String> responseInfo = new ArrayList<>(Arrays.asList("999", "message", "url", "customer:customerId"));
+        ArrayList<String> formattedResponse = ApiDataFormatter.formatResponseInfo(responseInfo);
+
+        ResponseObj responseObj = new ResponseObj(formattedResponse);
+        String log = ApiDataFormatter.formatLog(responseObj);
+        Assertions.assertEquals(log, "999;message;url;{\"customer\":\"customerId\"}");
     }
 }
