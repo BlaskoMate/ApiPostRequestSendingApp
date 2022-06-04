@@ -19,7 +19,7 @@ public class MyApp {
         Display.clearConsole();
         if (args.length > 1){
             sender.send(Arrays.asList(args));
-            Display.printLogsToConsole(LoggerDaoMem.getInstance().getLogs());
+//            Display.printLogsToConsole(LoggerDaoMem.getInstance().getLogs());
             return;
         }
 
@@ -57,8 +57,8 @@ public class MyApp {
                 // bulk send
                 break;
             case 3:
-                ArrayList<String> logs = LoggerDaoMem.getInstance().getLogs();
-                Display.printLogsToConsole(logs);
+//                ArrayList<String> logs = LoggerDaoMem.getInstance().getLogs();
+//                Display.printLogsToConsole(logs);
                 break;
             case 4:
                 List<List<String>> AllLogs = Util.getCSVDataList(LoggerDaoMem.getInstance().LOGGER_FILE_PATH);

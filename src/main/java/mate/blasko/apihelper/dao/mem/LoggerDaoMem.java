@@ -6,8 +6,12 @@ import mate.blasko.apihelper.util.Util;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class LoggerDaoMem{
+
+
+    public static final String CSV_DELIMITER = ",";
 
     private static LoggerDaoMem instance;
     private ArrayList<String> logs = new ArrayList<>();
@@ -49,19 +53,25 @@ public class LoggerDaoMem{
 
 
     public String formatLog(ResponseObj responseObj){
+        String del = CSV_DELIMITER;
         int status = responseObj.getStatus();
         String message = responseObj.getMessage();
         String url = responseObj.getUrl();
         String body = responseObj.getBody();
 
-        return String.format("\n%s,%s,%s,%s", status, message, url, body);
+        return String.format("%s%s%s%s%s%s%s", status, del, message, del, url, del, body);
+    }
+
+    public ResponseObj revertLog(String log){
+        ArrayList<String> logInfo = new ArrayList<>(Arrays.asList(log.split(CSV_DELIMITER)));
+        return new ResponseObj(logInfo);
     }
 
     public void clearLogs() throws IOException {
         Util.deleteCsvFileContent(LOGGER_FILE_PATH);
     }
 
-    public ArrayList<String> getLogs() {
-        return logs;
-    }
+//    public ArrayList<ArrayList<String>> getLogs() {
+//        return logs;
+//    }
 }
