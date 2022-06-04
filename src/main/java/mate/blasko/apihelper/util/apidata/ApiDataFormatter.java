@@ -20,6 +20,13 @@ public class ApiDataFormatter {
         return formattedRequest;
     }
 
+    public static ArrayList<String> formatResponseInfo(List<String> responseInfo) {
+        ArrayList<String> formattedResponse = new ArrayList<>((responseInfo.subList(0, ResponseObj.BODY_INDEX)));
+        ArrayList<String> body = new ArrayList<>(responseInfo.subList(ResponseObj.BODY_INDEX, responseInfo.size()));
+        formattedResponse.add(formatBody(body));
+        return formattedResponse;
+    }
+
     public static String formatLog(ResponseObj responseObj){
         String del = CSV_DELIMITER;
         int status = responseObj.getStatus();

@@ -9,7 +9,7 @@ public class ResponseObj extends ApiData{
     private static final int STATUS_INDEX = 0;
     private static final int MESSAGE_INDEX = 1;
     private static final int URL_INDEX = 2;
-    private static final int BODY_INDEX = 3;
+    public static final int BODY_INDEX = 3;
 
     public ResponseObj(RequestObj requestObj, int status, String message) {
         super(requestObj.getUrl(), requestObj.getBody());
