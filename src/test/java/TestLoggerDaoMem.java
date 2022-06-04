@@ -24,4 +24,15 @@ public class TestLoggerDaoMem {
         String log = ApiDataFormatter.formatLog(responseObj);
         Assertions.assertEquals(log, "999;message;url;{\"customer\":\"customerId\"}");
     }
+
+
+    @Test
+    public void TestFormatLogWithMultipleBodyArgs(){
+        ArrayList<String> responseInfo = new ArrayList<>(Arrays.asList("999", "message", "url", "customer:customerId", "api_key:api_key"));
+        ArrayList<String> formattedResponse = ApiDataFormatter.formatResponseInfo(responseInfo);
+
+        ResponseObj responseObj = new ResponseObj(formattedResponse);
+        String log = ApiDataFormatter.formatLog(responseObj);
+        Assertions.assertEquals(log, "999;message;url;{\"customer\":\"customerId\",\"api_key\":\"api_key\"}");
+    }
 }
