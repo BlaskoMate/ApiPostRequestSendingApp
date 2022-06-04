@@ -35,4 +35,13 @@ public class TestLoggerDaoMem {
         String log = ApiDataFormatter.formatLog(responseObj);
         Assertions.assertEquals(log, "999;message;url;{\"customer\":\"customerId\",\"api_key\":\"api_key\"}");
     }
+
+    @Test
+    public void TestRevertLogToResponseObj(){
+        ResponseObj responseObj = ApiDataFormatter.revertLogToResponseObj("999;message;url;{\"customer\":\"customerId\",\"api_key\":\"api_key\"}");
+        Assertions.assertEquals(responseObj.getStatus(), 999);
+        Assertions.assertEquals(responseObj.getMessage(), "message");
+        Assertions.assertEquals(responseObj.getUrl(), "url");
+        Assertions.assertEquals(responseObj.getBody(), "{\"customer\":\"customerId\",\"api_key\":\"api_key\"}");
+    }
 }
