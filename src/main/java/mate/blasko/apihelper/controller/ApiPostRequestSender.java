@@ -36,6 +36,39 @@ public class ApiPostRequestSender {
         RequestObj request = new RequestObj(formattedRequest);
         ResponseObj response = sendPostRequest(request);
         logger.appending(response);
+        Display.printLogToConsole(response);
+    }
+
+    public boolean validRequestInfo(ArrayList<String> requestInfo) {
+        if (requestInfo.size() == 2){
+            if (isValidUrl(requestInfo.get(RequestObj.URL_INDEX))){
+                if (isValidPostRequestBody(requestInfo.get(RequestObj.BODY_INDEX))){
+                    return true;
+                }
+                Display.InvalidPostRequestBody();
+            } else {
+                Display.InvalidPostRequestUrl();
+            }
+        } else {
+            Display.InvalidPostRequestParameterAmount();
+        }
+        return false;
+    }
+
+    public boolean isValidPostRequestBody(String Body) {
+        String[] args = Body.split(ApiDataFormatter.BODY_ARG_DELIMITER);
+        for (String arg : args){
+            if (arg.split(ApiDataFormatter.BODY_KEY_VALUE_DELIMITER).length != 2){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean isValidUrl(String url){
+        String[] schemes = {"http","https"};
+        UrlValidator urlValidator = new UrlValidator(schemes);
+        return urlValidator.isValid(url);
     }
 
 
