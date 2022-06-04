@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public class ResponseObj extends ApiData{
 
-    private int status;
-    private String message;
+    private final int status;
+    private final String message;
     private static final int STATUS_INDEX = 0;
     private static final int MESSAGE_INDEX = 1;
     private static final int URL_INDEX = 2;
@@ -18,11 +18,12 @@ public class ResponseObj extends ApiData{
     }
 
 
-    public ResponseObj(ArrayList<String> logInfo) {
-        super(logInfo.get(URL_INDEX), logInfo.get(BODY_INDEX));
-        this.status = Integer.valueOf(logInfo.get(STATUS_INDEX));
-        this.message = logInfo.get(MESSAGE_INDEX);
+    public ResponseObj(ArrayList<String> inputLogInfo) {
+        super(inputLogInfo.get(URL_INDEX), inputLogInfo.get(BODY_INDEX));
+        this.status = Integer.parseInt(inputLogInfo.get(STATUS_INDEX));
+        this.message = inputLogInfo.get(MESSAGE_INDEX);
     }
+
 
     public int getStatus() {
         return status;

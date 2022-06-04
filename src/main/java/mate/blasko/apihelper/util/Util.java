@@ -1,6 +1,6 @@
 package mate.blasko.apihelper.util;
 
-import mate.blasko.apihelper.dao.mem.LoggerDaoMem;
+import mate.blasko.apihelper.util.apidata.ApiDataFormatter;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ public class Util {
         String line;
         while((line = br.readLine()) != null) {
             if (!line.equals("") && line.charAt(0) != '*'){
-                result.add(Arrays.asList(line.split(LoggerDaoMem.CSV_DELIMITER)));
+                result.add(Arrays.asList(line.split(ApiDataFormatter.CSV_DELIMITER)));
             }
         }
         br.close();
@@ -43,7 +43,7 @@ public class Util {
         try {
             FileWriter writer = new FileWriter(filePath, append);
             BufferedWriter bwr = new BufferedWriter(writer);
-            bwr.write("\n ");
+            bwr.write("\n");
             bwr.write(String.valueOf(data));
             bwr.close();
         } catch (IOException e) {
