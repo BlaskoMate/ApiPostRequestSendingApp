@@ -11,7 +11,7 @@ import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class TestPostRequestLogs {
+public class TestSendPostRequest {
 
     ApiPostRequestSender sender = new ApiPostRequestSender();
 
