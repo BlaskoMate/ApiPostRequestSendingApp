@@ -28,4 +28,13 @@ public class Display {
     public static void clearConsole(){
         // TODO:
     }
+
+    public static void invalidCommand() {
+        System.out.println("Invalid command.");
+        getHelp();
+    }
+
+    public static void getHelp() {
+        System.out.println("Type in a command.\nIf you need help, type \"-h\" or \"help\" for more information..");
+    }
 }
