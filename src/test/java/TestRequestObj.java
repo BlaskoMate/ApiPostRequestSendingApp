@@ -1,3 +1,4 @@
+import mate.blasko.apihelper.util.apidata.ApiDataFormatter;
 import mate.blasko.apihelper.util.apidata.RequestObj;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -8,15 +9,16 @@ import java.util.Arrays;
 public class TestRequestObj {
 
     @Test
-    public void TestRequestObjCreationWithCorrectBodySyntax(){
-        ArrayList<String> requestInfo = new ArrayList<>(Arrays.asList("url", "a1:b2", "c3:d4"));
-        Assertions.assertEquals(new RequestObj(requestInfo).getBody(), "{\"a1\":\"b2\",\"c3\":\"d4\"}");
+    public void TestRequestObjCreationWithMultipleBodyArgs(){
+        ArrayList<String> requestInfo = new ArrayList<>(Arrays.asList("url", "customerId:customerIdId", "api_key:api_key_"));
+        ArrayList<String> formattedRequest = ApiDataFormatter.formatRequestInfo(requestInfo);
+        Assertions.assertEquals(new RequestObj(formattedRequest).getBody(), "{\"customerId\":\"customerIdId\",\"api_key\":\"api_key_\"}");
     }
 
     @Test
-    public void TestRequestObjCreationWithMalformedBodySyntax(){
+    public void TestThrowIndexOutOfBoundForRequestObjCreationWithMalformedBodySyntax(){
         ArrayList<String> requestInfo = new ArrayList<>(Arrays.asList("url", "customer customerId"));
         Assertions.assertThrows(IndexOutOfBoundsException.class,
-                () -> new RequestObj(requestInfo));
+                () -> ApiDataFormatter.formatRequestInfo(requestInfo));
     }
 }
