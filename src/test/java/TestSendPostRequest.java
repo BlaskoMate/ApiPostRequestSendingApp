@@ -35,6 +35,20 @@ public class TestSendPostRequest {
                 , "404;Not Found;https://example.com/login;{\"customer\":\"customerId\",\"api_key\":\"api_key_\"}");
     }
 
+    @ParameterizedTest
+    @ValueSource(strings = {
+            "not_an_url customer:customerId",
+            "https://example.com/login customer:customerId api_key",
+            "https://example.com/login customer customerId"})
+    public void TestNoLogCreatedWhenSendingPostRequestWithMalformedData(String command) throws IOException {
+        ArrayList<String> requestInfo = new ArrayList<>(Arrays.asList(command.split(" ")));
+        sender.send(requestInfo);
+
+        ArrayList<String> logs = Util.getCSVDataList(LoggerDaoMem.getInstance().LOGGER_FILE_PATH);
+        Assertions.assertEquals(logs.size(), 1);
+        Assertions.assertEquals(logs.get(0), "");
+    }
+
     @Test
     public void TestBulkSendPostRequestLogs() throws IOException {
         LoggerDaoMem logger = LoggerDaoMem.getInstance();
