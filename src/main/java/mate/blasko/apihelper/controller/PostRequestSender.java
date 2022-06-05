@@ -63,7 +63,11 @@ public class PostRequestSender {
     public boolean isValidPostRequestBody(String Body) {
         String[] args = Body.split(ApiDataFormatter.BODY_ARG_DELIMITER);
         for (String arg : args){
-            if (arg.split(ApiDataFormatter.BODY_KEY_VALUE_DELIMITER).length != 2){
+            String[] pair = arg.split(ApiDataFormatter.BODY_KEY_VALUE_DELIMITER);
+            if (pair.length != 2){
+                return false;
+            }
+            if (pair[0].equals("") || pair[1].equals("")){
                 return false;
             }
         }

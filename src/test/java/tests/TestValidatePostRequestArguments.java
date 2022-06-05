@@ -40,7 +40,7 @@ public class TestValidatePostRequestArguments {
             "customer customerId",
             ":value",
             ":"})
-    public void TestInvalidPostRequestBodys(String body){
+    public void TestInvalidPostRequestBody(String body){
         Assertions.assertFalse(sender.isValidPostRequestBody(body));
     }
 
