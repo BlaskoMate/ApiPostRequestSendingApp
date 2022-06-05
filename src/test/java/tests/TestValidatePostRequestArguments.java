@@ -6,7 +6,17 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 public class TestValidatePostRequestArguments {
 
-    ApiPostRequestSender sender = new ApiPostRequestSender();
+    PostRequestSender sender = new PostRequestSender();
+
+    @Test
+    public void TestSuccessfulStatusPrint(){
+        Assertions.assertEquals(Display.getResultStrForResponseStatus(200), "was successful");
+    }
+
+    @Test
+    public void TestUnSuccessfulStatusPrint(){
+        Assertions.assertEquals(Display.getResultStrForResponseStatus(404), "failed");
+    }
 
     @Test
     public void TestValidPostRequestBody(){
