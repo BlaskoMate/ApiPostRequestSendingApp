@@ -56,8 +56,12 @@ public final class Util {
     }
 
     public static boolean doesFilePathExist(String path){
-        File file = new File(path);
-        return file.isFile() && file.isDirectory();
+        try {
+            new BufferedReader(new FileReader(path));
+            return true;
+        }catch (FileNotFoundException e){
+            return false;
+        }
     }
 
     public static boolean anyMatch(String[] array, String str){

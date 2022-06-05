@@ -59,17 +59,14 @@ public class ApiPostRequestSenderApp {
     }
 
     public void handleBulkPostRequestCommand(String[] commandArray) throws IOException {
-        if (! validBulkSendPostRequestCommand(commandArray)){
-            Display.filePathNotExist();
+        if ( validBulkSendPostRequestCommand(commandArray)){
+            sender.bulkSend(commandArray[BULK_PATH_INDEX]);
         }
-        sender.bulkSend(commandArray[BULK_PATH_INDEX]);
+        Display.filePathNotExist();
     }
 
     private boolean validBulkSendPostRequestCommand(String[] commandArray){
-        if (commandArray.length == 2){
-            return Util.doesFilePathExist(commandArray[BULK_PATH_INDEX]);
-        }
-        return false;
+        return Util.doesFilePathExist(commandArray[BULK_PATH_INDEX]);
     }
 
     private void executeCommand(String[] commandArray) throws IOException {
