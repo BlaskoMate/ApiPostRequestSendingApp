@@ -13,22 +13,11 @@ public class LoggerDaoMem{
 
 
     private static LoggerDaoMem instance;
-    private ArrayList<String> logs = new ArrayList<>();
-    public final String LOGGER_FILE_PATH;
+    private final ArrayList<String> logs = new ArrayList<>();
+    private String LOGGER_FILE_PATH;
 
     private LoggerDaoMem(){
         LOGGER_FILE_PATH = "src/main/resources/Logger.csv";
-    }
-
-    private LoggerDaoMem(String filePath) {
-        this.LOGGER_FILE_PATH = filePath;
-    }
-
-    public static LoggerDaoMem getInstance(String filePath){
-        if (instance == null){
-            instance = new LoggerDaoMem(filePath);
-        }
-        return instance;
     }
 
     public static LoggerDaoMem getInstance(){
@@ -38,6 +27,13 @@ public class LoggerDaoMem{
         return instance;
     }
 
+    public String getLOGGER_FILE_PATH() {
+        return LOGGER_FILE_PATH;
+    }
+
+    public void setLOGGER_FILE_PATH(String LOGGER_FILE_PATH) {
+        this.LOGGER_FILE_PATH = LOGGER_FILE_PATH;
+    }
 
     public void appending(ResponseObj response) {
         String log = createLog(response);
