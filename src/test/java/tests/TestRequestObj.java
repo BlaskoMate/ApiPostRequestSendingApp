@@ -1,3 +1,5 @@
+package tests;
+
 import mate.blasko.apihelper.util.apidata.ApiDataFormatter;
 import mate.blasko.apihelper.util.apidata.RequestObj;
 import org.junit.jupiter.api.Assertions;
@@ -18,11 +20,4 @@ public class TestRequestObj {
         Assertions.assertEquals(new RequestObj(formattedRequest).getBody(), actualResult);
     }
 
-    @Test
-    public void TestThrowIndexOutOfBoundForRequestObjCreationWithMalformedBodySyntax(){
-        ArrayList<String> requestInfo = new ArrayList<>(Arrays.asList(
-                "url", "customer customerId"));
-        Assertions.assertThrows(IndexOutOfBoundsException.class,
-                () -> ApiDataFormatter.formatRequestInfo(requestInfo));
-    }
 }

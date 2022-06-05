@@ -3,10 +3,7 @@ import mate.blasko.apihelper.util.apidata.ApiDataFormatter;
 import mate.blasko.apihelper.util.apidata.ResponseObj;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 
-
-public class TestLoggerDaoMem {
 
     @BeforeAll
     public static void setup(){
