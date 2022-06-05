@@ -30,6 +30,15 @@ public class PostRequestSenderApp {
 
 
 
+
+    }
+
+    private boolean validCommand(String command){
+        if (Util.anyMatch(commands, command)){
+            return true;
+        }
+        Display.invalidCommand();
+        return false;
     }
 
     private String chooseFeature() throws IOException {

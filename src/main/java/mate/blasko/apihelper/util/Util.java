@@ -59,4 +59,7 @@ public class Util {
         return new File(path).exists();
     }
 
+    public static boolean anyMatch(String[] array, String str){
+        return Arrays.stream(array).anyMatch(str::contains);
+    }
 }
