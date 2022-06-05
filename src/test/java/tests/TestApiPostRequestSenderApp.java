@@ -1,3 +1,6 @@
+package tests;
+
+import helper.TestHelperPostRequestSender;
 import mate.blasko.apihelper.controller.ApiPostRequestSenderApp;
 import mate.blasko.apihelper.dao.mem.LoggerDaoMem;
 import mate.blasko.apihelper.util.Util;
@@ -7,13 +10,13 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class TestApiPostRequestSenderApp extends TestBasePostRequestSender{
+public class TestApiPostRequestSenderApp extends TestHelperPostRequestSender {
 
     private final ApiPostRequestSenderApp app = new ApiPostRequestSenderApp();
 
 
     @Test
-    public void TestPostRequestSendingWithCommandSyntax() throws IOException {
+    public void TestPostRequestSendingWithCommand() throws IOException {
         String[] testData = new String[] {"-d", "https://example.com/login",  "customer:customerId", "type:command"};
         app.handlePostRequestCommand(testData);
 

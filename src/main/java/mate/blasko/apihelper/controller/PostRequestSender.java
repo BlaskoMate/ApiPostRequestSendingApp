@@ -17,12 +17,12 @@ import java.util.ArrayList;
 
 import org.apache.commons.validator.routines.UrlValidator;
 
-public class ApiPostRequestSender {
+public class PostRequestSender {
 
     private LoggerDaoMem logger;
 
 
-    public ApiPostRequestSender(){
+    public PostRequestSender(){
         this.logger = LoggerDaoMem.getInstance();
     }
 
