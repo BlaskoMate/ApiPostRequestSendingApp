@@ -1,4 +1,7 @@
-import mate.blasko.apihelper.controller.ApiPostRequestSender;
+package tests;
+
+import mate.blasko.apihelper.controller.PostRequestSender;
+import mate.blasko.apihelper.util.Display;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -35,6 +38,7 @@ public class TestValidatePostRequestArguments {
             "customer: customerId",
             "customer:customerId api_key",
             "customer customerId",
+            ":value",
             ":"})
     public void TestInvalidPostRequestBodys(String body){
         Assertions.assertFalse(sender.isValidPostRequestBody(body));
