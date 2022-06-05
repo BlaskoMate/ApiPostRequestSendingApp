@@ -52,4 +52,15 @@ public class ApiDataFormatter {
         return String.valueOf(result);
     }
 
+    public static ArrayList<String> formatPostRequestCommand(String[] commandArray) {
+        StringBuilder concatBody = new StringBuilder();
+        for (int i = RequestObj.BODY_INDEX; i < commandArray.length; i++){
+            if (i == RequestObj.BODY_INDEX){
+                concatBody.append(commandArray[i]);
+            } else {
+                concatBody.append(ApiDataFormatter.BODY_ARG_DELIMITER).append(commandArray[i]);
+            }
+        }
+        return new ArrayList<>(Arrays.asList(commandArray[RequestObj.URL_INDEX], String.valueOf(concatBody)));
+    }
 }
