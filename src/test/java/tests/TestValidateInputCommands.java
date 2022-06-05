@@ -2,12 +2,13 @@ package tests;
 
 import mate.blasko.apihelper.controller.PostRequestSender;
 import mate.blasko.apihelper.util.Display;
+import mate.blasko.apihelper.util.Util;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-public class TestValidatePostRequestArguments {
+public class TestValidateInputCommands {
 
     PostRequestSender sender = new PostRequestSender();
 
@@ -47,6 +48,12 @@ public class TestValidatePostRequestArguments {
     @Test
     public void TestInvalidUrl(){
         Assertions.assertFalse(sender.isValidUrl(""));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"src", "src/test/resources/non_existing_file.csv"})
+    public void TestInvalidFilePath(){
+        Assertions.assertFalse(Util.doesFilePathExist("src"));
     }
 
 }
