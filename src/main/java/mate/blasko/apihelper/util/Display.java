@@ -1,10 +1,16 @@
 package mate.blasko.apihelper.util;
 
 import mate.blasko.apihelper.dao.mem.LoggerDaoMem;
+import mate.blasko.apihelper.util.apidata.ApiDataFormatter;
+import mate.blasko.apihelper.util.apidata.ResponseObj;
 
-import java.util.ArrayList;
+import java.io.IOException;
 
-public class Display {
+public final class Display {
+
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_GREEN = "\u001B[32m";
+    public static final String ANSI_RED = "\u001B[31m";
 
     public static void printLogs(String[] logs){
         for (String log : logs){
@@ -42,7 +48,7 @@ public class Display {
     public static void printHelp() {
         System.out.printf(
                 """
-                    Default file path for logging requests is set to: %s ...
+                    File path for logging requests is set to: %s ...
                     Command,   Description   < Arguments >
                     
                     -h, --help,     Get help for commands
@@ -51,14 +57,13 @@ public class Display {
                     -r, --recent,   Print recent logs since launching the app
                     -a, --all,      Print all logs from log file
                     -c, --clear     Clear console
-                    -e, --exit      Stop the application");
-                    """, LoggerDaoMem.getInstance().LOGGER_FILE_PATH);
+                    -e, --exit      Stop the application
+                    """, LoggerDaoMem.getInstance().getLOGGER_FILE_PATH());
     }
 
-    public static void printMenu() {
-        System.out.println("1) send post request\n2) send multiple post requests from file\n3) print recently sent requests\n4) print all sent requests\n5) exit");
+    public static void getHelp() {
+        System.out.println("Type in a command. For command list type \"help\":");
     }
-
 
     public static void clearConsole(){
         try {
@@ -72,11 +77,24 @@ public class Display {
     }
 
     public static void invalidCommand() {
-        System.out.println("Invalid command.");
-        getHelp();
+        System.out.println("invalid command. Try \"help\"");
     }
 
-    public static void getHelp() {
-        System.out.println("Type in a command.\nIf you need help, type \"-h\" or \"help\" for more information..");
+    public static void InvalidPostRequestUrl() {
+        System.out.println("Invalid URL.");
+    }
+
+    public static void InvalidPostRequestBody() {
+        System.out.println(
+                "Invalid body syntax for POST request.\n" +
+                "Try: \"-d <url> <key1:value1> <key2:value2>\"");
+    }
+
+    public static void InvalidPostRequestParameterAmount() {
+        System.out.println("Invalid parameter count for POST request.");
+    }
+
+    public static void filePathNotExist() {
+        System.out.println("File path does not exist.");
     }
 }
