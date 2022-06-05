@@ -1,6 +1,7 @@
 package mate.blasko.apihelper.controller;
 
 import mate.blasko.apihelper.dao.mem.LoggerDaoMem;
+import mate.blasko.apihelper.util.Display;
 import mate.blasko.apihelper.util.apidata.ApiDataFormatter;
 import mate.blasko.apihelper.util.apidata.RequestObj;
 import mate.blasko.apihelper.util.apidata.ResponseObj;
@@ -13,7 +14,8 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.List;
+
+import org.apache.commons.validator.routines.UrlValidator;
 
 public class ApiPostRequestSender {
 
@@ -25,18 +27,21 @@ public class ApiPostRequestSender {
     }
 
     public void bulkSend(String path) throws IOException {
-        List<List<String>> requests = Util.getCSVDataList(path);
-        for (List<String> requestInfo : requests){
+        ArrayList<ArrayList<String>> requests = Util.getCSVSplitDataList(path);
+        for (ArrayList<String> requestInfo : requests){
             send(requestInfo);
         }
     }
 
-    public void send(List<String> requestInfo) throws IOException {
+    public void send(ArrayList<String> requestInfo) throws IOException {
+        if (! validRequestInfo(requestInfo)){
+            return;
+        }
         ArrayList<String> formattedRequest = ApiDataFormatter.formatRequestInfo(requestInfo);
         RequestObj request = new RequestObj(formattedRequest);
         ResponseObj response = sendPostRequest(request);
         logger.appending(response);
-        Display.printLogToConsole(response);
+        Display.printLog(response);
     }
 
     public boolean validRequestInfo(ArrayList<String> requestInfo) {

@@ -2,30 +2,23 @@ package mate.blasko.apihelper.util.apidata;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.stream.Collectors;
 
 public class ApiDataFormatter {
 
     public static final String CSV_DELIMITER = ";";
 
-    private static final String BODY_ARG_DELIMITER = ":";
+    public static final String BODY_KEY_VALUE_DELIMITER = ":";
+    public static final String BODY_ARG_DELIMITER = " ";
     private static final int BODY_KEY_INDEX = 0;
     private static final int BODY_VALUE_INDEX = 1;
 
-    public static ArrayList<String> formatRequestInfo(List<String> requestInfo) {
-        ArrayList<String> formattedRequest = new ArrayList<>(List.of(requestInfo.get(RequestObj.URL_INDEX)));
-        ArrayList<String> body = new ArrayList<>(requestInfo.subList(RequestObj.BODY_Start_INDEX, requestInfo.size()));
-        formattedRequest.add(formatBody(body));
-        return formattedRequest;
+    public static ArrayList<String> formatRequestInfo(ArrayList<String> requestInfo) {
+        String formattedBody = formatRequestBody(requestInfo.get(RequestObj.BODY_INDEX));
+        requestInfo.set(RequestObj.BODY_INDEX, formattedBody);
+        return requestInfo;
     }
 
-    public static ArrayList<String> formatResponseInfo(List<String> responseInfo) {
-        ArrayList<String> formattedResponse = new ArrayList<>((responseInfo.subList(0, ResponseObj.BODY_INDEX)));
-        ArrayList<String> body = new ArrayList<>(responseInfo.subList(ResponseObj.BODY_INDEX, responseInfo.size()));
-        formattedResponse.add(formatBody(body));
-        return formattedResponse;
-    }
 
     public static String formatLog(ResponseObj responseObj){
         String del = CSV_DELIMITER;
@@ -42,16 +35,16 @@ public class ApiDataFormatter {
         return new ResponseObj(inputLogInfo);
     }
 
-    public static String formatBody(List<String> body) {
+    public static String formatRequestBody(String body) {
         StringBuilder result = new StringBuilder("{");
 
-        result.append(body
-                .stream()
+        result.append(Arrays
+                .stream(body.split(BODY_ARG_DELIMITER))
                 .map(e -> {
-                    String[] pair = e.split(BODY_ARG_DELIMITER);
+                    String[] pair = e.split(BODY_KEY_VALUE_DELIMITER);
                     String key = pair[BODY_KEY_INDEX];
                     String value = pair[BODY_VALUE_INDEX];
-                    return String.format("\"%s\"%s\"%s\"", key, BODY_ARG_DELIMITER, value);
+                    return String.format("\"%s\"%s\"%s\"", key, BODY_KEY_VALUE_DELIMITER, value);
                 }).collect(Collectors
                         .joining(",")));
 

@@ -5,11 +5,13 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class TestSendPostRequest {
 
@@ -29,10 +31,12 @@ public class TestSendPostRequest {
     @Test
     public void TesSendPostRequestLog() throws IOException {
         ArrayList<String> requestInfo = new ArrayList<>(Arrays.asList(
-                "https://example.com/login", "customer:customerId", "api_key:api_key_"));
+                "https://example.com/login", "customer:customerId api_key:api_key_"));
         sender.send(requestInfo);
-        Assertions.assertEquals(Util.getCSVDataString(LoggerDaoMem.getInstance().LOGGER_FILE_PATH)
-                , "404;Not Found;https://example.com/login;{\"customer\":\"customerId\",\"api_key\":\"api_key_\"}");
+
+        ArrayList<String> actualResult = new ArrayList<>(List.of(
+                "404;Not Found;https://example.com/login;{\"customer\":\"customerId\",\"api_key\":\"api_key_\"}"));
+        Assertions.assertEquals(Util.getCSVDataList(LoggerDaoMem.getInstance().LOGGER_FILE_PATH), actualResult);
     }
 
     @ParameterizedTest
@@ -53,9 +57,12 @@ public class TestSendPostRequest {
     public void TestBulkSendPostRequestLogs() throws IOException {
         LoggerDaoMem logger = LoggerDaoMem.getInstance();
         sender.bulkSend("src/test/resources/TestPostRequests.csv");
-        Assertions.assertEquals(Util.getCSVDataString(logger.LOGGER_FILE_PATH)
-                , "404;Not Found;https://example.com/login;{\"customer\":\"customerId\",\"api_key\":\"api_key\"}\n" +
-                        "404;Not Found;https://example.com/login;{\"customer\":\"customerId2\",\"api_key\":\"api_key2\"}");
+
+        ArrayList<String> actualResult = new ArrayList<>(Arrays.asList(
+                "404;Not Found;https://example.com/login;{\"customer\":\"customerId\",\"api_key\":\"api_key\"}",
+                "404;Not Found;https://example.com/login;{\"customer\":\"customerId2\",\"api_key\":\"api_key2\"}"));
+        Assertions.assertEquals(
+                Util.getCSVDataList(logger.LOGGER_FILE_PATH), actualResult);
     }
 
 }

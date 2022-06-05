@@ -11,20 +11,20 @@ public class Util {
 
 
 
-    public static List<List<String>> getCSVDataList(String filePath) throws IOException {
-        List<List<String>> result = new ArrayList<>();
+    public static ArrayList<ArrayList<String>> getCSVSplitDataList(String filePath) throws IOException {
+        ArrayList<ArrayList<String>> result = new ArrayList<>();
         BufferedReader br = new BufferedReader(new FileReader(filePath));
         String line;
         while((line = br.readLine()) != null) {
             if (!line.equals("") && line.charAt(0) != '*'){
-                result.add(Arrays.asList(line.split(ApiDataFormatter.CSV_DELIMITER)));
+                result.add(new ArrayList<>(Arrays.asList(line.split(ApiDataFormatter.CSV_DELIMITER))));
             }
         }
         br.close();
         return result;
     }
 
-    public static String getCSVDataString(String filePath) throws IOException {
+    public static ArrayList<String> getCSVDataList(String filePath) throws IOException {
         StringBuilder result = new StringBuilder();
         BufferedReader br = new BufferedReader(new FileReader(filePath));
         String line;
@@ -36,7 +36,7 @@ public class Util {
             }
         }
         br.close();
-        return String.valueOf(result);
+        return new ArrayList<>(List.of(String.valueOf(result).split("\n")));
     }
 
     public static void writeToCSVFile(String filePath, String data, boolean append){
