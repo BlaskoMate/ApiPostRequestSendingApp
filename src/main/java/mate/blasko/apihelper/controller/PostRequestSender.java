@@ -50,9 +50,9 @@ public class PostRequestSender {
                 if (isValidPostRequestBody(requestInfo.get(RequestObj.BODY_INDEX))){
                     return true;
                 }
-                Display.InvalidPostRequestBody();
+                Display.invalidPostRequestBody();
             } else {
-                Display.InvalidPostRequestUrl();
+                Display.invalidPostRequestUrl();
             }
         } else {
             Display.InvalidPostRequestParameterAmount();

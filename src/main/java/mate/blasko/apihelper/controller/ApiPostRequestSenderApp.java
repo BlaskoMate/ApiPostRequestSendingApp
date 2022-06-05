@@ -53,48 +53,62 @@ public class ApiPostRequestSenderApp {
     }
 
     public void handlePostRequestCommand(String[] commandArray) throws IOException {
-        String[] requestArray = Arrays.copyOfRange(commandArray, 1, commandArray.length);
-        ArrayList<String> requestInfo = ApiDataFormatter.formatPostRequestCommand(requestArray);
-        sender.send(requestInfo);
+        if (isValidPostRequestCommandLength(commandArray)){
+            String[] requestArray = Arrays.copyOfRange(commandArray, 1, commandArray.length);
+            ArrayList<String> requestInfo = ApiDataFormatter.formatPostRequestCommand(requestArray);
+            sender.send(requestInfo);
+        } else {
+            Display.invalidPostRequestBody();
+        }
+    }
+
+    public boolean isValidPostRequestCommandLength(String[] commandArray){
+        return commandArray.length >= 3;
     }
 
     public void handleBulkPostRequestCommand(String[] commandArray) throws IOException {
         if ( validBulkSendPostRequestCommand(commandArray)){
             sender.bulkSend(commandArray[BULK_PATH_INDEX]);
         }
-        Display.filePathNotExist();
     }
 
     private boolean validBulkSendPostRequestCommand(String[] commandArray){
-        return Util.doesFilePathExist(commandArray[BULK_PATH_INDEX]);
+        if (commandArray.length == 2){
+            if (Util.doesFilePathExist(commandArray[BULK_PATH_INDEX])){
+                return true;
+            } else {
+                Display.filePathNotExist();
+            }
+        } else {
+            Display.invalidBulkSendPostRequest();
+        }
+        return false;
     }
 
     private void executeCommand(String[] commandArray) throws IOException {
         String command = commandArray[COMMAND_INDEX];
-        if (commandArray.length == 1){
-            switch (command){
-                case "-h", "help":
-                    Display.printHelp();
-                    break;
-                case "-r", "recent":
-                    Display.printLogs(LoggerDaoMem.getInstance().getLogsFromMemory());
-                    break;
-                case "-a", "all":
-                    Display.printLogs(LoggerDaoMem.getInstance().getLogsFromCsv());
-                    break;
-                case "-c", "clear":
-                    Display.clearConsole();
-                    break;
-                case "-e", "exit":
-                    System.exit(0);
-                    break;
-            }
-        }
-        if (commandArray.length == 2 && (command.equals("-b") || command.equals("bulk"))){
-            handleBulkPostRequestCommand(commandArray);
-        }
-        if (command.equals("-d") || command.equals("post")){
-            handlePostRequestCommand(commandArray);
+        switch (command){
+            case "-h", "help":
+                Display.printHelp();
+                break;
+            case "-d", "post":
+                handlePostRequestCommand(commandArray);
+                break;
+            case "-b", "bulk":
+                handleBulkPostRequestCommand(commandArray);
+                break;
+            case "-r", "recent":
+                Display.printLogs(LoggerDaoMem.getInstance().getLogsFromMemory());
+                break;
+            case "-a", "all":
+                Display.printLogs(LoggerDaoMem.getInstance().getLogsFromCsv());
+                break;
+            case "-c", "clear":
+                Display.clearConsole();
+                break;
+            case "-e", "exit":
+                System.exit(0);
+                break;
         }
     }
 }

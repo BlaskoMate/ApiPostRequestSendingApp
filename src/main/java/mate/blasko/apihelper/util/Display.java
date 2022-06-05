@@ -80,11 +80,11 @@ public final class Display {
         System.out.println("invalid command. Try \"help\"");
     }
 
-    public static void InvalidPostRequestUrl() {
-        System.out.println("Invalid URL.");
+    public static void invalidPostRequestUrl() {
+        System.out.println("Invalid URL for post request.");
     }
 
-    public static void InvalidPostRequestBody() {
+    public static void invalidPostRequestBody() {
         System.out.println(
                 "Invalid body syntax for POST request.\n" +
                 "Try: \"-d <url> <key1:value1> <key2:value2>\"");
@@ -96,5 +96,11 @@ public final class Display {
 
     public static void filePathNotExist() {
         System.out.println("File path does not exist.");
+    }
+
+    public static void invalidBulkSendPostRequest() {
+        System.out.println(
+                "Invalid body syntax for bulk post request send.\n" +
+                        "Try: \"-b <filePath>\"");
     }
 }
