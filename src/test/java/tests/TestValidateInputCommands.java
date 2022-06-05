@@ -51,6 +51,14 @@ public class TestValidateInputCommands {
     }
 
     @ParameterizedTest
+    @ValueSource(strings = {
+            "src/test/resources/TestPostRequests.csv",
+            "src/main/resources/PostRequests.csv"})
+    public void TestValidFilePath(String path){
+        Assertions.assertTrue(Util.doesFilePathExist(path));
+    }
+
+    @ParameterizedTest
     @ValueSource(strings = {"src", "src/test/resources/non_existing_file.csv"})
     public void TestInvalidFilePath(String path){
         Assertions.assertFalse(Util.doesFilePathExist(path));
