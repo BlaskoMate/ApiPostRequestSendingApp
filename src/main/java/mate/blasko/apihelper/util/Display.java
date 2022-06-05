@@ -14,18 +14,29 @@ public class Display {
     }
 
     public static void printLog(ResponseObj log){
-        boolean success = log.getStatus() == 200;
-        String body = String.join("\n    ", log.getBody().split(","));
-        System.out.printf(
-                """
-                    POST request was %s
-                    URL: %s
-                    Body:\040
-                        %s
-                    Status: %s
-                    Message: %s
-                    """, success, log.getUrl(), body, log.getStatus(), log.getMessage());
+        System.out.println(getLogToPrint(log));
+    }
 
+    public static String getLogToPrint(ResponseObj log){
+        String result = getResultStrForResponseStatus(log.getStatus());
+        String color = log.getStatus() == 200 ? ANSI_GREEN : ANSI_RED;
+        String body = String.join("\n" + " ".repeat(11), log.getBody().split(","));
+        return String.format(
+                """
+                  
+                    %sPOST request %s!%s
+                    
+                        - URL: %s
+                        - Body:\040
+                              %s
+                        - Status: %s
+                        - Message: %s
+                                            
+                    """, color, result, ANSI_RESET, log.getUrl(), body, log.getStatus(), log.getMessage());
+    }
+
+    public static String getResultStrForResponseStatus(int status) {
+        return status == 200 ? "was successful" : "failed";
     }
 
     public static void printHelp() {
