@@ -1,15 +1,13 @@
-import mate.blasko.apihelper.dao.mem.LoggerDaoMem;
+package tests;
+
+import helper.TestHelperLogger;
 import mate.blasko.apihelper.util.apidata.ApiDataFormatter;
 import mate.blasko.apihelper.util.apidata.ResponseObj;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 
 
-    @BeforeAll
-    public static void setup(){
-        LoggerDaoMem.getInstance("src/test/resources/TestLogger.csv");
-    }
-
+public class TestLoggerDaoMem extends TestHelperLogger {
 
     @Test
     public void TestRevertLogToResponseObj(){

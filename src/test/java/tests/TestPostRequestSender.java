@@ -1,9 +1,12 @@
-import mate.blasko.apihelper.controller.ApiPostRequestSender;
+package tests;
+
+import helper.TestHelperPostRequestSender;
+import mate.blasko.apihelper.controller.PostRequestSender;
 import mate.blasko.apihelper.dao.mem.LoggerDaoMem;
+import mate.blasko.apihelper.util.Display;
 import mate.blasko.apihelper.util.Util;
+import mate.blasko.apihelper.util.apidata.ResponseObj;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -11,21 +14,10 @@ import org.junit.jupiter.params.provider.ValueSource;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
-public class TestSendPostRequest {
+public class TestPostRequestSender extends TestHelperPostRequestSender {
 
-    ApiPostRequestSender sender = new ApiPostRequestSender();
-
-    @BeforeAll
-    static void setupTests(){
-        LoggerDaoMem.getInstance("src/test/resources/TestLogger.csv");
-    }
-
-    @BeforeEach
-    public void clearTestLogFile() throws IOException {
-        LoggerDaoMem.getInstance().clearLogs();
-    }
+    PostRequestSender sender = new PostRequestSender();
 
 
     @Test
@@ -34,9 +26,10 @@ public class TestSendPostRequest {
                 "https://example.com/login", "customer:customerId api_key:api_key_"));
         sender.send(requestInfo);
 
-        ArrayList<String> actualResult = new ArrayList<>(List.of(
-                "404;Not Found;https://example.com/login;{\"customer\":\"customerId\",\"api_key\":\"api_key_\"}"));
-        Assertions.assertEquals(Util.getCSVDataList(LoggerDaoMem.getInstance().LOGGER_FILE_PATH), actualResult);
+        String actualResult = "404;Not Found;https://example.com/login;{\"customer\":\"customerId\",\"api_key\":\"api_key_\"}";
+        ArrayList<String> logs = Util.getCSVDataList(LoggerDaoMem.getInstance().getLOGGER_FILE_PATH());
+        Assertions.assertEquals(logs.size(), 1);
+        Assertions.assertEquals(logs.get(0), actualResult);
     }
 
     @ParameterizedTest
@@ -48,7 +41,7 @@ public class TestSendPostRequest {
         ArrayList<String> requestInfo = new ArrayList<>(Arrays.asList(command.split(" ")));
         sender.send(requestInfo);
 
-        ArrayList<String> logs = Util.getCSVDataList(LoggerDaoMem.getInstance().LOGGER_FILE_PATH);
+        ArrayList<String> logs = Util.getCSVDataList(LoggerDaoMem.getInstance().getLOGGER_FILE_PATH());
         Assertions.assertEquals(logs.size(), 1);
         Assertions.assertEquals(logs.get(0), "");
     }
@@ -62,7 +55,7 @@ public class TestSendPostRequest {
                 "404;Not Found;https://example.com/login;{\"customer\":\"customerId\",\"api_key\":\"api_key\"}",
                 "404;Not Found;https://example.com/login;{\"customer\":\"customerId2\",\"api_key\":\"api_key2\"}"));
         Assertions.assertEquals(
-                Util.getCSVDataList(logger.LOGGER_FILE_PATH), actualResult);
+                Util.getCSVDataList(logger.getLOGGER_FILE_PATH()), actualResult);
     }
 
 }
