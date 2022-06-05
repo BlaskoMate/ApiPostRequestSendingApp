@@ -51,7 +51,12 @@ public class LoggerDaoMem{
         Util.deleteCsvFileContent(LOGGER_FILE_PATH);
     }
 
-//    public ArrayList<ArrayList<String>> getLogs() {
-//        return logs;
-//    }
+    public String[] getLogsFromCsv() throws IOException {
+        ArrayList<String> logs = Util.getCSVDataList(LOGGER_FILE_PATH);
+        return logs.toArray(new String[0]);
+    }
+
+    public String[] getLogsFromMemory() {
+        return logs.toArray(new String[0]);
+    }
 }
