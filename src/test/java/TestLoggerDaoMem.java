@@ -5,8 +5,6 @@ import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class TestLoggerDaoMem {
 
@@ -15,26 +13,6 @@ public class TestLoggerDaoMem {
         LoggerDaoMem.getInstance("src/test/resources/TestLogger.csv");
     }
 
-    @Test
-    public void TestFormatLog(){
-        ArrayList<String> responseInfo = new ArrayList<>(Arrays.asList("999", "message", "url", "customer:customerId"));
-        ArrayList<String> formattedResponse = ApiDataFormatter.formatResponseInfo(responseInfo);
-
-        ResponseObj responseObj = new ResponseObj(formattedResponse);
-        String log = ApiDataFormatter.formatLog(responseObj);
-        Assertions.assertEquals(log, "999;message;url;{\"customer\":\"customerId\"}");
-    }
-
-
-    @Test
-    public void TestFormatLogWithMultipleBodyArgs(){
-        ArrayList<String> responseInfo = new ArrayList<>(Arrays.asList("999", "message", "url", "customer:customerId", "api_key:api_key"));
-        ArrayList<String> formattedResponse = ApiDataFormatter.formatResponseInfo(responseInfo);
-
-        ResponseObj responseObj = new ResponseObj(formattedResponse);
-        String log = ApiDataFormatter.formatLog(responseObj);
-        Assertions.assertEquals(log, "999;message;url;{\"customer\":\"customerId\",\"api_key\":\"api_key\"}");
-    }
 
     @Test
     public void TestRevertLogToResponseObj(){

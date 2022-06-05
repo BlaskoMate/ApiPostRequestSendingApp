@@ -44,10 +44,4 @@ public class TestSendPostRequest {
                         "404;Not Found;https://example.com/login;{\"customer\":\"customerId2\",\"api_key\":\"api_key2\"}");
     }
 
-    @Test
-    public void TestThrowMalformedUrlExceptionForSendPostRequestWithMalformedUrl(){
-        ArrayList<String> requestInfo = new ArrayList<>(Arrays.asList("not an url"));
-        Assertions.assertThrows(MalformedURLException.class, () -> sender.send(requestInfo));
-    }
-
 }
