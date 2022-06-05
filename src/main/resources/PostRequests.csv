@@ -1,0 +1,4 @@
+*  URL / Body
+https://example.com/login;customer:customerId api_key:api_key1
+https://example.com/login;customer:customerId2 api_key:api_key2
+https://example.com/login;customer:customerId3 api_key:api_key3
