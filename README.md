@@ -63,15 +63,16 @@ I used the ResponseObj class to create logs and also to revert logs back to Resp
 *The Util class mainly provides helper methods for reading from,- and writing into .csv files. It also contains a couple of generic validation methods.*
 
 
-## **Where the application is at the moment:**
-
-  - The application was written on Windows which may result in some unintentional bugs on any other operating system.
-  - While developing the application one of my main focuses was on providing tests to maintain high coverage for sending a post request.
-  - I included writing junit tests for command input validation, and component test cases for validating the logs after sending post requests.
+## **Tests:**
+  
+  *While developing the application one of my main focuses was on providing tests to maintain high coverage for sending a post request.
+   I included writing junit tests for command input validation, and component test cases for validating the logs after sending post requests.
+   Although tests cover a decent portion of the important parts of the application, there is still improvements to be made and tests to be written.*
 
 
 ## **Where the application can improve:**
 
+   - Test the application on multiple operating systems, and provide solutions that work on every os.
    - Include date in logs and also add test cases for it using mocking.
    - Add junit tests for every command.
    - improve on the way file path is handled to be able to use files outside the repository folder.
