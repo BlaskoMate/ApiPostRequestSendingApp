@@ -2,6 +2,7 @@
 
 ## **Features:**
 
+   - In order to run the application from command line, go to the root repository and type: `java -jar .\target\APIPostRequestSendingApp-1.0-SNAPSHOT.jar`
    - The application can send a post request to a web API with data enclosed inside the request body.
    - The application can send multiple post requests with a single command, by specifying the file location containing the request data.
    - The application can create a log in a .csv file when sending a post request from the data of the request and the corresponding response.
@@ -11,8 +12,7 @@
 ## **Task solutions:**
 
 ### *Commands:*
-   - Every command should work from running the application from command line with proper command syntax, then the application exits.
-     However, there is a problem regarding compiling the Main class.
+   - Every command works when running the application from command line with proper command syntax, then the application exits.
    - Every command works during runtime within an endless loop until typing the "exit" command for stopping the application.
 
 ### *Validating the response of a post request:*
